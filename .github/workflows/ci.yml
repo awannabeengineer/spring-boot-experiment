@@ -19,14 +19,15 @@ jobs:
           java-version: '17'
       - name: Build with Maven
         run: mvn clean install
-      - name: Build Docker image
-        run: docker build -t spring-boot-experiment .
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Push Docker image
-        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/spring-boot-experiment:latest
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/spring-boot-experiment:latest
       - name: Clean up Docker
         run: docker rmi spring-boot-experiment
