@@ -31,5 +31,3 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/spring-boot-experiment:latest
-      - name: Clean up Docker
-        run: docker rmi spring-boot-experiment
